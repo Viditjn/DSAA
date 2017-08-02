@@ -1,0 +1,10 @@
+mela   = rgb2gray(imread('kumbhmela.jpg'));
+baba = rgb2gray(imread('shyam.jpg'));
+locate = normxcorr2(baba,mela);
+[ypeak, xpeak] = find(locate==max(locate(:)));
+yoffSet = ypeak-size(baba,1);
+xoffSet = xpeak-size(baba,2);
+hFig = figure;
+hAx  = axes;
+imshow(mela,'Parent', hAx);
+imrect(hAx, [xoffSet+1, yoffSet+1, size(baba,2), size(baba,1)]);
