@@ -1,0 +1,19 @@
+c = 340; %speed of sound in m/sec
+v = 100/6; %speed of source in m/sec
+f = 400*2*pi; %frequency of sound wave in Hz
+f1 = f*c/(c-v); %frequency when source moving towards observer 
+f2 = f*c/(c+v); %frequency when source moving away from observer 
+fs = 8000; %Sampling freq
+%s1 = -50 : v/fs : -v/fs;
+s1 = linspace(-50,-v/fs,3*fs);
+s2 = linspace(v/fs,50,3*fs);
+%s2 = v/fs : v/fs : 50;
+%theta1 = cos(0 : f1/fs : f1*(3-1/fs));
+theta1 = cos(linspace(0,f1*(3-1/fs),3*fs));
+%theta2 = cos(f2*(3+1/fs) : f2/fs : f2*6);
+theta2 = cos(linspace(f2*(3+1/fs),f2*6,3*fs));
+sound1 = theta1 ./ s1;
+sound2 = theta2 ./ s2;
+Final = vertcat(sound1',sound2');
+filename = 'Doppler.wav';
+audiowrite(filename,Final,8000);
